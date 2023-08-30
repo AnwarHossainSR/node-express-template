@@ -20,7 +20,8 @@
         "format": "next lint --fix && prettier '**/*.{json,yaml}' --write --ignore-path .gitignore"
     },
     "lint-staged": {
-        "*.{js,jsx,md,ts,tsx}": "yarn prettier"
+        "*.{js,jsx,md,ts,tsx}": "yarn prettier",
+        "*.{js,jsx,ts,tsx}": "yarn eslint"
     },
     "keywords": [],
     "author": "",
