@@ -1,5 +1,6 @@
-import PostModel from '@/resources/post/post.model';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Post from '@/resources/post/post.interface';
+import PostModel from '@/resources/post/post.model';
 
 class PostService {
     private post = PostModel;
@@ -12,8 +13,8 @@ class PostService {
             const post = await this.post.create({ title, body });
 
             return post;
-        } catch (error) {
-            throw new Error('Unable to create post');
+        } catch (error: any) {
+            throw new Error(error.message);
         }
     }
 }

@@ -47,8 +47,8 @@ class UserService {
             } else {
                 throw new Error('Wrong credentials given');
             }
-        } catch (error) {
-            throw new Error('Unable to create user');
+        } catch (error: any) {
+            throw new Error(error.message);
         }
     }
 }
