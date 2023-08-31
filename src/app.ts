@@ -6,6 +6,7 @@ import express, { Application } from 'express';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
+import swaggerDocs from './swagger/swagger';
 
 class App {
     public express: Application;
@@ -19,6 +20,7 @@ class App {
         this.initialiseMiddleware();
         this.initialiseControllers(controllers);
         this.initialiseErrorHandling();
+        this.initialiseSwagger();
     }
 
     private initialiseDatabaseConnection(): void {
@@ -63,6 +65,10 @@ class App {
 
     private initialiseErrorHandling(): void {
         this.express.use(ErrorMiddleware);
+    }
+
+    private initialiseSwagger(): void {
+        swaggerDocs(this.express, this.port);
     }
 }
 

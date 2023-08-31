@@ -27,7 +27,7 @@ class UserController implements Controller {
             validationMiddleware(validate.login),
             this.login
         );
-        this.router.get(`${this.path}`, authenticated, this.getUser);
+        this.router.get(`/me`, authenticated, this.getUser);
     }
 
     private register = async (
@@ -80,3 +80,150 @@ class UserController implements Controller {
 }
 
 export default UserController;
+
+//register
+/**
+ * @swagger
+ * /api/users/register:
+ *   post:
+ *     tags:
+ *       - "User"
+ *     description: "Register User"
+ *     operationId: "registerUser"
+ *     produces:
+ *       - application/json
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *                name:
+ *                 type: string
+ *                 format: string
+ *                 example: "Mahedi Hasan"
+ *                email:
+ *                 type: string
+ *                 format: email
+ *                 example: "test@gmail.com"
+ *                password:
+ *                 type: string
+ *                 format: password
+ *                 example: "123456"
+ *     responses:
+ *       '200':
+ *         description: Add Value Response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 status:
+ *                   type: string
+ *       '400':
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Message = Invalid request
+ *                 status:
+ *                   type: string
+ *                   description: Status = failure
+ */
+
+//login
+/**
+ * @swagger
+ * /api/users/login:
+ *   post:
+ *     tags:
+ *       - "User"
+ *     description: "Login User"
+ *     operationId: "loginUser"
+ *     produces:
+ *       - application/json
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: "test@gmail.com"
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 example: "123456"
+ *     responses:
+ *       '200':
+ *         description: Add Value Response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 status:
+ *                   type: string
+ *       '400':
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Message = Invalid request
+ *                 status:
+ *                   type: string
+ *                   description: Status = failure
+ */
+
+//get user
+/**
+ * @swagger
+ * /api/me:
+ *   get:
+ *     tags: [User]
+ *     description: "Get Me"
+ *     operationId: "getMe"
+ *     produces:
+ *       - application/json
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       '200':
+ *         description: Add Value Response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 status:
+ *                   type: string
+ *       '400':
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Message = Invalid request
+ *                 status:
+ *                   type: string
+ *                   description: Status = failure
+ */

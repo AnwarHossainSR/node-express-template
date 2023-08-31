@@ -1,9 +1,9 @@
-import { Router, Request, Response, NextFunction } from 'express';
-import Controller from '@/utils/interfaces/controller.interface';
-import HttpException from '@/utils/exceptions/http.exception';
 import validationMiddleware from '@/middleware/validation.middleware';
-import validate from '@/resources/post/post.validation';
 import PostService from '@/resources/post/post.service';
+import validate from '@/resources/post/post.validation';
+import HttpException from '@/utils/exceptions/http.exception';
+import Controller from '@/utils/interfaces/controller.interface';
+import { NextFunction, Request, Response, Router } from 'express';
 
 class PostController implements Controller {
     public path = '/posts';
@@ -40,3 +40,54 @@ class PostController implements Controller {
 }
 
 export default PostController;
+
+//Create post
+/**
+ * @swagger
+ * /api/Posts:
+ *   post:
+ *     tags: [Posts]
+ *     description: "Create a new post"
+ *     operationId: "createPost"
+ *     produces:
+ *       - application/json
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *                title:
+ *                 type: string
+ *                 format: string
+ *                 example: "test post"
+ *                body:
+ *                 type: string
+ *                 format: string
+ *                 example: "test post body"
+ *     responses:
+ *       '200':
+ *         description: Add Value Response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 status:
+ *                   type: string
+ *       '400':
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Message = Invalid request
+ *                 status:
+ *                   type: string
+ *                   description: Status = failure
+ */
