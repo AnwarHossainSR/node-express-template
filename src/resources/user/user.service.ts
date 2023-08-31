@@ -10,15 +10,13 @@ class UserService {
     public async register(
         name: string,
         email: string,
-        password: string,
-        role: string
+        password: string
     ): Promise<string | Error> {
         try {
             const user = await this.user.create({
                 name,
                 email,
                 password,
-                role,
             });
 
             const accessToken = token.createToken(user);

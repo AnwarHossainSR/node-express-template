@@ -40,8 +40,7 @@ class UserController implements Controller {
             const token = await this.UserService.register(
                 name,
                 email,
-                password,
-                'user'
+                password
             );
 
             res.status(201).json({ token });

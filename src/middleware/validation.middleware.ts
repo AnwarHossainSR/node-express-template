@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, RequestHandler } from 'express';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 import Joi from 'joi';
 
 function validationMiddleware(schema: Joi.Schema): RequestHandler {
@@ -21,11 +21,17 @@ function validationMiddleware(schema: Joi.Schema): RequestHandler {
             req.body = value;
             next();
         } catch (e: any) {
-            const errors: string[] = [];
+            const errors: Record<string, string> = {};
             e.details.forEach((error: Joi.ValidationErrorItem) => {
-                errors.push(error.message);
+                const fieldName = error.context?.key;
+                if (fieldName) {
+                    errors[fieldName] = error.message.replace(/['"]/g, '');
+                }
             });
-            res.status(400).send({ errors: errors });
+            res.status(400).send({
+                message: 'Validation Error',
+                errors,
+            });
         }
     };
 }
