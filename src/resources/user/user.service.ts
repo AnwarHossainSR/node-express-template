@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import UserModel from '@/resources/user/user.model';
 import token from '@/utils/token';
 

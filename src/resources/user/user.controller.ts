@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import authenticated from '@/middleware/authenticated.middleware';
 import validationMiddleware from '@/middleware/validation.middleware';
 import UserService from '@/resources/user/user.service';

@@ -5,9 +5,10 @@ function errorMiddleware(
     error: HttpException,
     req: Request,
     res: Response,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _next: NextFunction
 ): void {
-    let status = error.status || 500;
+    const status = error.status || 500;
     let message = error.message || 'Something went wrong';
 
     // Wrong Mongodb Id error
