@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import authenticated from '@/middleware/authenticated.middleware';
 import validationMiddleware from '@/middleware/validation.middleware';
 import UserService from '@/resources/user/user.service';
@@ -40,8 +41,7 @@ class UserController implements Controller {
             const token = await this.UserService.register(
                 name,
                 email,
-                password,
-                'user'
+                password
             );
 
             res.status(201).json({ token });
