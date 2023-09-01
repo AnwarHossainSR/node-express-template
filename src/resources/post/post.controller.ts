@@ -18,7 +18,8 @@ class PostController implements Controller {
     private initialiseRoutes(): void {
         this.router.post(
             `${this.path}`,
-            upload.single('file'), // 'file' should match the name attribute of your file input in the HTML form
+            //upload.single('file'), // 'file' should match the name attribute of your file input in the HTML form
+            upload.array('files', 5), // 'files' should match the name attribute of your file input in the HTML form
             validationMiddleware(validate.create),
             this.create
         );
@@ -32,14 +33,22 @@ class PostController implements Controller {
         try {
             const { title, body } = req.body;
 
-            const file = (req as CustomRequest).file;
+            const files = (req as CustomRequest).files;
 
             // Check if a file was uploaded
-            if (!file) {
+            if (!files || files.length === 0) {
                 return next(new HttpException(400, 'File not provided'));
             }
 
-            const post = await this.PostService.create(title, body, file.path);
+            // Process each uploaded file
+            const filePaths: string[] = [];
+            for (const file of files) {
+                // You can do something with each file here, e.g., save to a database
+                // For now, we'll just store the file paths in an array
+                filePaths.push(file.path);
+            }
+
+            const post = await this.PostService.create(title, body, filePaths);
 
             res.status(201).json({ post });
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -79,9 +88,10 @@ export default PostController;
  *                 format: string
  *                 required: true
  *                 example: "test post body"
- *                file:
- *                 type: file
- *                 format: file
+ *                files:
+ *                 type: array
+ *                 items:
+ *                  type: file
  *     responses:
  *       '200':
  *         description: Add Value Response

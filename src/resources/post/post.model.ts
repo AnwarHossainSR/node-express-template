@@ -11,8 +11,11 @@ const PostSchema = new Schema(
             type: String,
             required: true,
         },
-        file: {
-            type: String,
+        // file: {
+        //     type: String,// Use a string to store a single file reference
+        // },
+        files: {
+            type: [String], // Use an array of strings to store multiple file references
         },
     },
     { timestamps: true }

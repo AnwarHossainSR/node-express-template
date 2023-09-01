@@ -11,10 +11,10 @@ class PostService {
     public async create(
         title: string,
         body: string,
-        file: string
+        files: string[]
     ): Promise<Post> {
         try {
-            const post = await this.post.create({ title, body, file });
+            const post = await this.post.create({ title, body, files });
 
             return post;
         } catch (error: any) {

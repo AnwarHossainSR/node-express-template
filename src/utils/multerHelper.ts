@@ -1,10 +1,15 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request } from 'express';
 import multer, { StorageEngine } from 'multer';
 
-// Define custom types for Request, Response, and NextFunction
-type CustomRequest = Request & { file: Express.Multer.File };
-type CustomResponse = Response;
-type CustomNextFunction = NextFunction;
+// Define a custom type for Request to include single file
+// type CustomRequest = Request & {
+//     file: Express.Multer.File;
+// };
+
+// Define a custom type for Request to include multiple files
+type CustomRequest = Request & {
+    files: Express.Multer.File[];
+};
 
 const storage: StorageEngine = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -17,4 +22,4 @@ const storage: StorageEngine = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-export { CustomNextFunction, CustomRequest, CustomResponse, upload };
+export { CustomRequest, upload };
