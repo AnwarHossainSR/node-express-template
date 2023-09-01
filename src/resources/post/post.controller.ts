@@ -59,22 +59,29 @@ export default PostController;
  *     tags: [Posts]
  *     description: "Create a new post"
  *     operationId: "createPost"
+ *     consumes:
+ *       - multipart/form-data
  *     produces:
  *       - application/json
  *     requestBody:
  *       content:
- *         application/json:
+ *          multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
  *                title:
  *                 type: string
  *                 format: string
+ *                 required: true
  *                 example: "test post"
  *                body:
  *                 type: string
  *                 format: string
+ *                 required: true
  *                 example: "test post body"
+ *                file:
+ *                 type: file
+ *                 format: file
  *     responses:
  *       '200':
  *         description: Add Value Response
