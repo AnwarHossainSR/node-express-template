@@ -72,6 +72,8 @@ export default PostController;
  *       - multipart/form-data
  *     produces:
  *       - application/json
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       content:
  *          multipart/form-data:
