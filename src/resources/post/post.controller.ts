@@ -1,3 +1,4 @@
+import authenticated from '@/middleware/authenticated.middleware';
 import validationMiddleware from '@/middleware/validation.middleware';
 import PostService from '@/resources/post/post.service';
 import validate from '@/resources/post/post.validation';
@@ -18,6 +19,7 @@ class PostController implements Controller {
     private initialiseRoutes(): void {
         this.router.post(
             `${this.path}`,
+            authenticated,
             //upload.single('file'), // 'file' should match the name attribute of your file input in the HTML form
             upload.array('files', 5), // 'files' should match the name attribute of your file input in the HTML form
             validationMiddleware(validate.create),
@@ -34,11 +36,6 @@ class PostController implements Controller {
             const { title, body } = req.body;
 
             const files = (req as CustomRequest).files;
-
-            // Check if a file was uploaded
-            if (!files || files.length === 0) {
-                return next(new HttpException(400, 'File not provided'));
-            }
 
             // Process each uploaded file
             const filePaths: string[] = [];
@@ -70,8 +67,6 @@ export default PostController;
  *     operationId: "createPost"
  *     consumes:
  *       - multipart/form-data
- *     produces:
- *       - application/json
  *     security:
  *       - bearerAuth: []
  *     requestBody:
