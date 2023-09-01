@@ -8,9 +8,13 @@ class PostService {
     /**
      * Create a new post
      */
-    public async create(title: string, body: string): Promise<Post> {
+    public async create(
+        title: string,
+        body: string,
+        files: string[]
+    ): Promise<Post> {
         try {
-            const post = await this.post.create({ title, body });
+            const post = await this.post.create({ title, body, files });
 
             return post;
         } catch (error: any) {
