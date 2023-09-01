@@ -3,6 +3,7 @@ import PostService from '@/resources/post/post.service';
 import validate from '@/resources/post/post.validation';
 import HttpException from '@/utils/exceptions/http.exception';
 import Controller from '@/utils/interfaces/controller.interface';
+import { CustomRequest, upload } from '@/utils/multerHelper';
 import { NextFunction, Request, Response, Router } from 'express';
 
 class PostController implements Controller {
@@ -17,6 +18,7 @@ class PostController implements Controller {
     private initialiseRoutes(): void {
         this.router.post(
             `${this.path}`,
+            upload.single('file'), // 'file' should match the name attribute of your file input in the HTML form
             validationMiddleware(validate.create),
             this.create
         );
@@ -30,11 +32,19 @@ class PostController implements Controller {
         try {
             const { title, body } = req.body;
 
-            const post = await this.PostService.create(title, body);
+            const file = (req as CustomRequest).file;
+
+            // Check if a file was uploaded
+            if (!file) {
+                return next(new HttpException(400, 'File not provided'));
+            }
+
+            const post = await this.PostService.create(title, body, file.path);
 
             res.status(201).json({ post });
-        } catch (error) {
-            next(new HttpException(400, 'Cannot create post'));
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            next(new HttpException(400, error.message));
         }
     };
 }
