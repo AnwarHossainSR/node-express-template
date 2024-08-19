@@ -31,11 +31,6 @@ const options = {
             },
         },
         host: 'http://localhost:4000',
-        security: [
-            {
-                bearerAuth: [],
-            },
-        ],
     },
     host: 'localhost:4000',
     schemes: ['http', 'https'],
